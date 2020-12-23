@@ -64,6 +64,19 @@ SUBSYSTEM=="usb", ATTRS{idVendor}=="0fd9", ATTRS{idProduct}=="0063", MODE:="660"
 SUBSYSTEM=="usb", ATTRS{idVendor}=="0fd9", ATTRS{idProduct}=="006c", MODE:="660", GROUP="plugdev"
 SUBSYSTEM=="usb", ATTRS{idVendor}=="0fd9", ATTRS{idProduct}=="006d", MODE:="660", GROUP="plugdev"
 ```
+
+On Fedora without `plugdev` group paste the following lines:
+```
+SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", MODE="0666", ACTION!="add" \
+ATTR{idVendor}=="0fd9", ATTR{idProduct}=="006d"
+SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", MODE="0666", ACTION!="add" \
+ATTR{idVendor}=="0fd9", ATTR{idProduct}=="0060"
+SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", MODE="0666", ACTION!="add" \
+ATTR{idVendor}=="0fd9", ATTR{idProduct}=="0063"
+SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", MODE="0666", ACTION!="add" \
+ATTR{idVendor}=="0fd9", ATTR{idProduct}=="006c"
+```
+
 Reload the rules:
 ```
 sudo udevadm control --reload-rules
